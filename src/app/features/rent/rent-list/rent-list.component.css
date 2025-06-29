@@ -1,0 +1,22 @@
+th{
+text-align: center;
+}
+
+.money{
+    text-align: right;
+}
+
+img {
+    width: 100px;
+    height: 100px;
+  }
+  
+
+  .example-month-picker .mat-calendar-period-button {
+    pointer-events: none;
+  }
+  
+  .example-month-picker .mat-calendar-arrow {
+    display: none;
+  }
+  

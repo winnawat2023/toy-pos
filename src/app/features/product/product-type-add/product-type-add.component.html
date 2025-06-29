@@ -1,0 +1,35 @@
+<form [formGroup]="productTypeForm">
+  <div class="card">
+    <div class="card-header">
+      <h5>เพิ่มประเภทสินค้า {{shopName}}</h5>
+    </div>
+
+    <div class="card-body">
+
+      <div class="form-group">
+        <label for="title">ชื่อ</label>
+        <input type="text" class="form-control" id="title" formControlName="title" name="title" />
+      </div>
+
+      <br>
+
+      <div class="form-group">
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" role="switch" id="published" formControlName="published">
+          <label class="form-check-label" for="published">สถานะ</label>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card-footer text-muted">
+      <button type="button" class="btn btn-sm btn-warning" (click)="goBack()">
+        กลับ
+      </button>
+      <button type="submit" [disabled]="!productTypeForm.valid" class="btn btn-sm btn-primary" (click)="create()">
+        บันทึก
+      </button>
+    </div>
+    
+  </div>
+</form>

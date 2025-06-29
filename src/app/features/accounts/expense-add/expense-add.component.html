@@ -1,0 +1,38 @@
+<form [formGroup]="expensesForm">
+  <div class="card">
+    <h5 class="card-header">เพิ่มค่าใช้จ่าย</h5>
+    <div class="card-body">
+
+      <div class="form-group">
+        <label for="title">ประเภทค่าใช้จ่าย</label>
+        <select class="form-control" name="type" id="type" formControlName="type">
+          <option *ngFor="let type of expenseType" [ngValue]="type.expenseTypeID">{{type.expenseTypeName}}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="title">ชื่อค่าใช้จ่าย</label>
+        <input type="text" class="form-control" id="title" formControlName="name" name="title" />
+      </div>
+
+      <div class="form-group">
+        <label for="description">รายละเอียด</label>
+        <textarea class="form-control" name="description" id="description" rows="3"
+          formControlName="description"></textarea>
+      </div>
+
+      <br>
+
+    </div>
+
+    <div class="card-footer text-muted">
+      <button class="btn btn-warning" (click)="getBack()">
+        กลับ
+      </button>
+      <button (click)="addExpense()" [disabled]="!expensesForm.valid" mat-flat-button color="accent">
+        บันทึก
+      </button>
+    </div>
+
+  </div>
+</form>

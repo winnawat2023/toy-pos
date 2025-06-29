@@ -1,0 +1,29 @@
+.mat-stepper-horizontal {
+  margin-top: 8px;
+}
+
+.mat-mdc-form-field {
+  margin-top: 16px;
+}
+
+button{
+  margin: 2px;
+}
+
+img {
+  width: 100px;
+  height: 100px;
+}
+
+.qrpayment{
+  width: 100;
+  height: 150;
+}
+
+th {
+  text-align: center;
+}
+
+tfoot{
+  font-weight: bold;
+}

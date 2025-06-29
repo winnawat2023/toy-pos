@@ -1,0 +1,18 @@
+.list {
+  text-align: left;
+  margin: auto;
+}
+
+th {
+  text-align: center;
+}
+
+img {
+  width: 100px;
+  height: 100px;
+}
+
+form {
+  max-width: 95%;
+  margin: auto;
+}

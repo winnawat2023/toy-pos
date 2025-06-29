@@ -1,0 +1,142 @@
+<div class="card">
+    <div class="card-header">
+        <div class="row g-2">
+            <div class="col-auto">
+                <h4 class="card-title">บันทึกใบสั่งซื้อ</h4>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+
+        <form [formGroup]="receiptForm">
+
+            <div class="row g-2">
+                <div class="form-group">
+                    <label for="description">รูปใบรับสินค้า</label>
+                    <div class="text-left">
+                        <img src="{{imageURL}}" class="rounded">
+                    </div>
+                    <input type="file" class="text-nowrap text-truncate" (change)="selectFile($event)" />
+                </div>
+            </div>
+
+            <div class="row g-2">
+                <div class="col-auto">
+                    <input type="text" readonly class="form-control-plaintext" id="product" value="ราคารวม">
+                </div>
+                <div class="col-auto">
+                    <input type="number" class="form-control" id="total" value="total" value="{{total}}">
+                </div>
+               
+            </div>
+
+            <div class="row g-2">
+                <div class="col-auto">
+                    <input type="text" readonly class="form-control-plaintext" id="shop-label" value="เลือกร้านค้า">
+                </div>
+                <div class="col-auto">
+                    <select (change)="shopChange()" class="form-control" name="shop" id="shop" formControlName="shop">
+                        <option *ngFor="let shop of shops" [ngValue]="shop">{{shop.title}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col-auto">
+                    <input type="text" readonly class="form-control-plaintext" id="type" value="ประเภทสินค้า">
+                </div>
+                <div class="col-auto">
+                    <select (change)="typeChange()" class="form-control" name="type" id="type"
+                        formControlName="productType">
+                        <option *ngFor="let type of types" [ngValue]="type">{{type.title}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col-auto">
+                    <input type="text" readonly class="form-control-plaintext" id="product" value="สินค้า">
+                </div>
+                <div class="col-auto">
+                    <select class="form-control" name="type" id="type" formControlName="product">
+                        <option *ngFor="let product of products" [ngValue]="product">{{product.title}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row g-2">
+                <div class="col-auto">
+                    <input type="text" readonly class="form-control-plaintext" id="product" value="จำนวน">
+                </div>
+                <div class="col-auto">
+                    <input type="number" class="form-control" id="quantity" formControlName="quantity">
+                </div>
+            </div>
+
+            <div class="row g-2">
+                <div class="col-auto">
+                    <input type="text" readonly class="form-control-plaintext" id="product" value="ราคา">
+                </div>
+                <div class="col-auto">
+                    <input type="number" class="form-control" id="price" formControlName="price">
+                </div>
+
+                <div class="col-auto">
+                    <button [disabled]="!receiptForm.valid" type="button" class="btn btn-success"
+                        (click)="addReceipt()">
+                        เพิ่มรายการ
+                    </button>
+
+                </div>
+            </div>
+
+
+        </form>
+
+        <br>
+        <div>
+            <table class="table table-striped table-bordered table-hover table-responsive">
+                <thead>
+                    <tr>
+                        <th scope="col">ลำดับ</th>
+                        <th scope="col">ร้านค้า</th>
+                        <th scope="col">ประเภทสินค้า</th>
+                        <th scope="col">สินค้า</th>
+                        <th scope="col">รายละเอียด</th>
+                        <th scope="col">จำนวน</th>
+                        <th scope="col">ราคา</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let receipt of receipts; index as i">
+                        <td class="text-center" scope="row">{{i+1}}</td>
+                        <td>{{receipt.shop.title}} </td>
+                        <td>{{receipt.productType.title}}</td>
+                        <td>{{receipt.product.title}}</td>
+                        <td>{{receipt.product.description}}</td>
+                        <td>{{receipt.quantity}}</td>
+                        <td>{{receipt.price}}</td>
+                        <td> <button  type="button" class="btn btn-danger"
+                                (click)="deleteReceipt(receipt)">
+                                ลบรายการ
+                            </button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+
+    <div class="card-footer text-muted">
+
+
+        <button class="btn btn-warning" (click)="getBack()">
+            กลับ
+        </button>
+
+        <button [disabled]="receipts.length==0 || imageURL=='../../../../assets/images/user.png'"  type="button" class="btn btn-primary" (click)="save()">
+            บันทึก 
+        </button>
+
+    </div>
+</div>

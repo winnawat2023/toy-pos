@@ -1,0 +1,70 @@
+<form class="form-control" [formGroup]="productForm">
+  <h4>รายละเอียดสินค้า</h4>
+
+  <div class="form-group">
+    <label for="title">ประเภทสินค้า</label>
+    <select (change)="typeChange()" class="form-control" name="type" id="type" formControlName="productTypeKey">
+      <option *ngFor="let type of types" [ngValue]="type.key">{{type.title}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="title">ชื่อ</label>
+    <input type="text" class="form-control" id="title" formControlName="title" name="title" />
+  </div>
+
+  <div class="form-group">
+    <label for="description">รายละเอียด</label>
+    <textarea class="form-control" name="description" id="description" rows="3"
+      formControlName="description"></textarea>
+  </div>
+
+  <br>
+
+  <div class="form-group">
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="published" formControlName="published">
+      <label class="form-check-label" for="published">สถานะ</label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="description">ราคา</label>
+    <input type="number" formControlName="price">
+  </div>
+
+  <br>
+
+  <div class="form-group">
+    <label for="description">รูปสินค้า</label>
+
+    <div class="text-left">
+      <img src="{{imageURL}}" class="rounded">
+    </div>
+    <input type="file" class="text-nowrap text-truncate" (change)="selectFile($event)" />
+
+
+    <br>
+
+  </div>
+
+
+
+
+</form>
+
+<br>
+
+
+
+
+
+<button class="btn btn-danger" (click)="deleteProduct()">
+  ลบ
+</button>
+<button class="btn btn-warning" (click)="getBack()">
+  กลับ
+</button>
+
+<button type="button" class="btn btn-primary" (click)="updateProduct()">
+  บันทึก
+</button>

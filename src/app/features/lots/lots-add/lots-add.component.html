@@ -1,0 +1,86 @@
+<form [formGroup]="lotsForm">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">เพิ่มล็อคเช่าขายของ</h4>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row g-2">
+                <div class="col-auto">
+                    <input type="text" readonly class="form-control-plaintext" id="lotNumber"
+                        value="ล็อคหมายเลข">
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" id="lotNumber"
+                        formControlName="lotNumber">
+                </div>
+            </div>
+            <br>
+
+            <div class="row g-2">
+                <div class="col-auto">
+                    <input type="text" readonly class="form-control-plaintext" id="waterMeterNumber"
+                        value="มิเตอร์น้ำ">
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" id="waterMeterNumber"
+                        formControlName="waterMeterNumber">
+                </div>
+            </div>
+            <br>
+
+            <div class="row g-2">
+                <div class="col-auto">
+                    <input type="text" readonly class="form-control-plaintext" id="electricityMeterNumber"
+                        value="มิเตอร์ไฟฟ้า">
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" id="electricityMeterNumber"
+                        formControlName="electricityMeterNumber">
+                </div>
+            </div>
+            <br>
+
+            <div class="row g-2">
+                <div class="col-auto">
+                    <input type="text" readonly class="form-control-plaintext" id="rent"
+                        value="ค่าเช่า">
+                </div>
+                <div class="col-auto">
+                    <input type="number" class="form-control" id="rent"
+                        formControlName="rent">
+                </div>
+            </div>
+            <br>
+
+            <div class="row g-2">
+                <div class="col-auto">
+                    <input type="text" readonly class="form-control-plaintext" id="rent"
+                        value="ค่าเช่า">
+                </div>
+                <div class="col-auto">
+                    <select (change)="shopChange()" class="form-control" name="shop" id="shop" formControlName="shop">
+                        <option *ngFor="let shop of shops" [ngValue]="shop">{{shop.title}}</option>
+                    </select>
+                </div>
+            </div>
+            <br>
+
+     
+
+        </div>
+        
+        <div class="card-footer text-muted">
+         
+            <button type="button" (click)="goBack()" class="btn btn-warning">
+                กลับ
+            </button>
+            <button type="submit" (click)="createLot()"  class="btn btn-success">
+                เพิ่ม
+            </button>
+          
+        </div>
+
+    </div>
+</form>

@@ -1,0 +1,302 @@
+<div class="card">
+    <div class="card-header">
+        <form [formGroup]="fillterForm">
+            <div class="row">
+                <div class="col-auto">
+                    <h4 class="card-title">สรุปบัญชีรายวัน</h4>
+                </div>
+                <div class="col-auto">
+                    <input type="date" formControlName="date" (change)="dateChange()">
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="card-body">
+
+       
+            <div class="card">
+                <form [formGroup]="dailyAccountsForm">
+                <div class="card-header">
+                    <h6 class="card-title">บันทึกรายรับ</h6>
+                </div>
+                <div class="card-body">
+
+                    <div class="row g-2">
+                        <div class="col-auto">
+                            <input type="text" readonly class="form-control-plaintext staffInput" value="รายรับเงินโอน">
+                        </div>
+                        <div class="col-auto">
+                            <input (change)="calSummary()" type="number" class="form-control"
+                                formControlName="income_transfer">
+                        </div>
+                        <div class="col-auto">
+                            <input type="text" readonly class="form-control-plaintext staffInput"
+                                value="(สรุปยอดจาก K-Shop)">
+                        </div>
+                    </div>
+
+                    <div class="row g-2">
+                        <div class="col-auto">
+                            <input type="text" readonly class="form-control-plaintext staffInput" value="เงินสดนับได้">
+                        </div>
+                        <div class="col-auto">
+                            <input (change)="calSummary()" type="number" class="form-control"
+                                formControlName="countable_cash">
+                        </div>
+                        <div class="col-auto">
+                            <input type="text" readonly class="form-control-plaintext staffInput" value="(GRAND TOTAL)">
+                        </div>
+                    </div>
+
+
+                    <div class="row g-12">
+                        <div class="col-auto">
+                            <label for="sale_cash">รายรับเงินสด :
+                                {{dailyAccountsForm.get('income_cash').value + ' (เงินสดนับได้
+                                ('+dailyAccountsForm.get('countable_cash').value+') + รายจ่ายเงินสด
+                                ('+dailyAccountsForm.get('total_outcome_cash').value+') - เงินสดนับเข้า (4000)
+                                )'}}</label>
+                        </div>
+                    </div>
+
+                    <div class="row g-2">
+                        <div class="col-auto">
+                            <label for="sale_transfer">รวมรายรับ :
+                                {{dailyAccountsForm.get('income_total').value}}</label>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="row g-2">
+                        <div class="col-auto">
+                            <label for="sale_transfer">ใส่กระเป๋า :
+                                {{dailyAccountsForm.get('wallet').value}}</label>
+                        </div>
+                    </div>
+                    -->
+                </div>
+
+                <div class="card-header card-footer">
+                    <h6 class="card-title">บันทึกยอดขาย</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row g-2">
+                        <div class="col-auto">
+                            <input type="text" readonly class="form-control-plaintext staffInput" value="ยอดขายรวม">
+                        </div>
+                        <div class="col-auto">
+                            <input (change)="calSummary()" type="number" class="form-control"
+                                formControlName="sale_total">
+                        </div>
+                        <div class="col-auto">
+                            <input type="text" readonly class="form-control-plaintext staffInput" value="(SALE TOTAL)">
+                        </div>
+
+
+                        <!--
+                        <div class="col-auto">
+                            <input
+                                [ngClass]="{'overspend' : this.dailyAccountsForm.get('income_total').value<this.dailyAccountsForm.get('sale_total').value}"
+                                type="number" readonly class="form-control" id="income_total"
+                                formControlName="income_total">
+                        </div>
+                        -->
+                    </div>
+
+                    <div class="row g-2">
+                        <div class="col-auto">
+                            <label for="sale_cash">ยอดขายเงินสด :
+                                {{dailyAccountsForm.get('sale_cash').value}}</label>
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <div class="col-auto">
+                            <label for="sale_transfer">ยอดขายเงินโอน :
+                                {{dailyAccountsForm.get('sale_transfer').value}}</label>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+                <div class="card-header card-footer">
+                    <h6 class="card-title">บันทึกค่าใช้จ่าย</h6>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="dailyAccountsFormOutcome">
+
+                        <div class="row g-2">
+                            <div class="col-auto">
+                                <input type="text" readonly class="form-control-plaintext" id="outcome_type"
+                                    value="ประเภทรายจ่าย">
+                            </div>
+                            <div class="col-auto">
+                                <mat-radio-group formControlName="outcome_type" (change)="outcomeTypeChange()">
+                                    <mat-radio-button value="shop">ค่าอาหาร </mat-radio-button>
+                                    <mat-radio-button value="expenses">ค่าใช้จ่ายที่บันทีกไว้ </mat-radio-button>
+                                    <mat-radio-button value="other">ค่าใช้จ่ายอื่นๆ </mat-radio-button>
+
+                                </mat-radio-group>
+                            </div>
+
+                        </div>
+
+                        <div *ngIf="dailyAccountsFormOutcome.get('outcome_type').value=='shop'" class="row g-2">
+                            <div class="col-auto">
+                                <input type="text" readonly class="form-control-plaintext" id="outcome_detail"
+                                    value="ร้านค้า">
+                            </div>
+                            <div class="col-auto">
+                                <select class="form-control" name="shop" id="shop" formControlName="shop">
+                                    <option *ngFor="let shop of shops" [ngValue]="shop">{{shop.title}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div *ngIf="dailyAccountsFormOutcome.get('outcome_type').value=='expenses'" class="row g-2">
+                            <div class="col-auto">
+                                <input type="text" readonly class="form-control-plaintext" id="expenses"
+                                    value="ค่าใช้จ่าย">
+                            </div>
+                            <div class="col-auto">
+                                <select class="form-control" name="expenses" id="expenses" formControlName="expense">
+                                    <option *ngFor="let expense of expenses" [ngValue]="expense">{{expense.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div *ngIf="dailyAccountsFormOutcome.get('outcome_type').value=='other'" class="row g-2">
+                            <div class="col-auto">
+                                <input type="text" readonly class="form-control-plaintext" id="outcome_detail"
+                                    value="ระบุรายจ่าย">
+                            </div>
+                            <div class="col-auto">
+                                <input type="text" class="form-control" id="detail" formControlName="detail">
+                            </div>
+                        </div>
+
+                        <div class="row g-2">
+                            <div class="col-auto">
+                                <input type="text" readonly class="form-control-plaintext" id="outcome_total"
+                                    value="วิธีชำระ">
+                            </div>
+                            <div class="col-auto">
+                                <select class="form-control" name="payment_type" id="cuspayment_typetomer"
+                                    formControlName="payment_type">
+                                    <option *ngFor="let type of paymentTypes" [ngValue]="type">{{type.payment_name}}
+                                    </option>
+                                </select>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row g-2">
+                            <div class="col-auto">
+                                <input type="text" readonly class="form-control-plaintext" id="outcome_total"
+                                    value="จำนวนเงิน">
+                            </div>
+                            <div class="col-auto">
+                                <input type="number" class="form-control" id="outcome_total"
+                                    formControlName="outcome_total">
+                            </div>
+                            <div class="col-auto">
+                                <button [disabled]="!dailyAccountsFormOutcome.valid" (click)="addOutcome()"
+                                    mat-flat-button color="primary" matStepperPrevious>เพิ่ม</button>
+                            </div>
+                        </div>
+
+
+                    </form>
+                    <br>
+                    <table class="table table-striped table-bordered table-hover table-responsive">
+
+                        <thead>
+                            <tr>
+                                <th>ลำดับ</th>
+                                <th>ประเภทค่าใช้จ่าย</th>
+                                <th>รายละเอียด</th>
+                                <th>วิธีชำระ</th>
+                                <th>จำนวนเงิน</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let item of this.dailyAccountsForm.get('outcomes').value index as i">
+                                <td>{{i+1}}</td>
+                                <td>{{getExpenseType(item)}}</td>
+                                <td>{{getExpenseDetail(item)}}</td>
+                                <td>{{item.payment_type.payment_name}}</td>
+                                <td>{{item.outcome_total}}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-danger" (click)="deleteOutcome(item)">
+                                        ลบ
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr *ngIf="this.dailyAccountsForm.get('total_outcome_cash').value>0">
+                                <td colspan="4">รวมค่าใช้จ่ายเงินสด</td>
+                                <td colspan="2">{{ this.dailyAccountsForm.get('total_outcome_cash').value}}</td>
+                            </tr>
+                            <tr *ngIf="this.dailyAccountsForm.get('total_outcome_transfer').value>0">
+                                <td colspan="4">รวมค่าใช้จ่ายเงินโอน</td>
+                                <td colspan="2">{{ this.dailyAccountsForm.get('total_outcome_transfer').value}}</td>
+                            </tr>
+                            <tr *ngIf="this.dailyAccountsForm.get('total_outcome_food').value>0">
+                                <td colspan="4">รวมค่าอาหาร</td>
+                                <td colspan="2">{{ this.dailyAccountsForm.get('total_outcome_food').value}}</td>
+                            </tr>
+                            <tr *ngIf="this.dailyAccountsForm.get('total_outcome_bag').value>0">
+                                <td colspan="4">รวมค่าใช้จ่ายเงินในกระเป๋า</td>
+                                <td colspan="2">{{ this.dailyAccountsForm.get('total_outcome_bag').value}}</td>
+                            </tr>
+                            <tr *ngIf="this.dailyAccountsForm.get('total_outcome_credit').value>0">
+                                <td colspan="4">รวมค่าใช้จ่ายบัตรเครดิต</td>
+                                <td colspan="2">{{ this.dailyAccountsForm.get('total_outcome_credit').value}}</td>
+                            </tr>
+                            <tr *ngIf="this.dailyAccountsForm.get('total_outcome').value>0">
+                                <td colspan="4">รวมค่าใช้จ่ายทั้งหมด</td>
+                                <td colspan="2">{{ this.dailyAccountsForm.get('total_outcome').value}}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+           
+            </div>
+       
+
+
+    </div>
+
+    <div class="card-header card-footer">
+        <h6 class="card-title">ยอดขาย : {{dailyAccountsForm.get('sale_total').value}} </h6>
+        <h6 class="card-title">รายรับเงินสด : 
+                                {{dailyAccountsForm.get('income_cash').value + ' (เงินสดนับได้
+                                ('+dailyAccountsForm.get('countable_cash').value+') + รายจ่ายเงินสด
+                                ('+dailyAccountsForm.get('total_outcome_cash').value+') - เงินสดนับเข้า (4000))'}}
+            </h6>
+        <h6 class="card-title">เงินโอนคงเหลือ : {{dailyAccountsForm.get('income_transfer').value-dailyAccountsForm.get('total_outcome_food').value}} 
+            (รายรับเงินโอน ({{dailyAccountsForm.get('income_transfer').value}}) - ยอดโอนค่าอาหารรวม ({{dailyAccountsForm.get('total_outcome_food').value}}))
+            
+            </h6>
+
+        <h6 class="card-title">เงินขาดเกิน : <label [ngClass]="{ 'staffInput': shortOver >= 0, 'overspend': shortOver < 0 }">{{shortOver}}</label>
+            
+        </h6>
+
+
+        <h6 class="card-title">นำเงินเข้ากระเป๋า :
+            <label>{{dailyAccountsForm.get('income_cash').value -
+                dailyAccountsForm.get('total_outcome_cash').value}}</label>
+        </h6>
+    </div>
+
+
+    <div class="card-footer text-muted">
+        <button (click)="onSave()" mat-flat-button color="accent">บันทึก</button>
+    </div>
+</div>

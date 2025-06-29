@@ -1,0 +1,105 @@
+<div class="card">
+    <div class="card-header">
+        <div class="row g-2">
+            <div class="col-auto">
+                <h4 class="card-title">บันทึกค่าน้ำค่าไฟ</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <form [formGroup]="fillterForm">
+            <div class="form-group">
+              
+                <mat-form-field>
+                    <input matInput [matDatepicker]="dp" placeholder="Month and Year" formControlName="month">
+                    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                    <mat-datepicker #dp
+                                    startView="multi-year"
+                                    (yearSelected)="chosenYearHandler($event)"
+                                    (monthSelected)="chosenMonthHandler($event, dp)"
+                                    panelClass="example-month-picker">
+                    </mat-datepicker>
+                  </mat-form-field>
+              
+              <!--
+                <label for="amount">ปี-เดือน </label>
+                <select (change)="onSearchRent()" class="form-control" name="month" id="month" formControlName="month">
+                    <option *ngFor="let month of months" [ngValue]="month">{{month}}</option>
+                </select>
+                -->
+            </div>
+            <div class="form-group">
+                <label for="shop">ผู้เช่า</label>
+                <select (change)="onShopChange()" class="form-control" name="shop" id="month" formControlName="shop">
+                    <option [ngValue]="null">ALL</option>
+                    <option *ngFor="let shop of shops" [ngValue]="shop">{{shop.title}}</option>
+                </select>
+            </div>
+        </form>
+        <br>
+
+        <table class="table table-striped table-bordered table-hover table-responsive">
+            <thead>
+                <tr>
+                    <th scope="col">ลำดับ</th>
+                    <th scope="col">ล็อคหมายเลข</th>
+                    <th scope="col">ค่าไฟ (ยูนิต 10 บาท)</th>
+                    <th scope="col">ค่าน้ำ (ยูนิต 20 บาท)</th>
+                    <th scope="col">ค่าเช่า</th>
+                    <th scope="col">ผู้เช่า</th>
+                    <th scope="col">ยอดชำระ</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let history of rentHistory index as i">
+                    <th>{{i+1}}</th>
+                    <td>{{history.lot.lotNumber}}</td>
+                    <td>
+                        <label style="font-weight: bold;">{{getDataRent(history,'totalElectricity')|
+                            currency:'':''}}</label>
+                        <br>
+                        <label>{{getDetailElectricity(history,'totalElectricity')}}</label>
+                    </td>
+                    <td>
+                        <label style="font-weight: bold;">{{getDataRent(history,'totalWater')| currency:'':''}}</label>
+                        <br>
+                        <label>{{getDetailWater(history,'totalElectricity')}}</label>
+                    </td>
+                    <td class="money" style="font-weight: bold;">{{getDataRent(history,'rent')| currency:'':''}}</td>
+                    <td>
+                        <div>
+                            <label>{{history.lot.shop.title}}</label>
+                            <br>
+                            <!-- <img src="{{getImagePath(history.lot.shop.title)}}" class="rounded"> -->
+                        </div>
+                    </td>
+                    <td class="money" style="font-weight: bold;text-decoration: underline;">
+                        {{getDataRent(history,'totalPrice')| currency:'':''}}</td>
+                    <td>
+                        <button *ngIf="history.rent" class="btn btn-sm btn-warning" (click)="updateRent(history)">
+                            แก้ไข
+                        </button>
+                        <button *ngIf="!history.rent" class="btn btn-sm btn-success" (click)="addRent(history.lot)">
+                            เพิ่ม
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th class="money" colspan="2" style="text-align: right;"></th>
+                    <th class="money" style="text-align: left;">{{summaryElectricity| currency:'':''}}</th>
+                    <th class="money" style="text-align: left;">{{summaryWater| currency:'':''}}</th>
+                    <th class="money" style="text-align: right;">{{summaryRent| currency:'':''}}</th>
+                    <th class="money" colspan="1" style="text-align: right;">ยอดชำระรวม</th>
+                    <th class="money" style="font-weight: bold;text-decoration: underline;">{{summary|currency:'':'' }}
+                    </th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+</div>

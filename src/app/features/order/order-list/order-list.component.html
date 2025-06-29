@@ -1,0 +1,71 @@
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">ยอดเงินปัจจุบัน(เงินสด) {{currentWallet.drawer}}</h4>
+    </div>
+
+    <div class="card-body">
+       
+       
+        <h4 class="card-title">ยอดขาย : {{currentWallet.cash}}</h4>
+        <h4 class="card-title">เงินสด : {{currentWallet.cash}}</h4>
+        <h4 class="card-title">เงินโอน : {{currentWallet.transfer}}</h4>
+    </div>
+ 
+    <div class="card-footer text-muted">
+     
+        <button mat-flat-button color="warn" >ปิดยอด</button>
+        <button mat-flat-button color="primary" [routerLink]="['/order/add']" routerLinkActive="active">รับออเดอร์</button>
+    </div>
+
+</div>
+
+<br>
+
+<div class="card">
+    <div class="card-header">
+        <div class="row g-2">
+            <div class="col-auto">
+                <h4 class="card-title">ประวัติการขาย</h4>
+            </div>
+            
+        </div>
+
+    </div>
+    <div class="card-body">
+        <form [formGroup]="fillterForm">
+            <input (change)="dateChange()" type="date" formControlName="date">
+        </form>
+        <br>
+        <h4 class="card-title">ยอดขาย : {{historyWallet.balance}}</h4>
+        <h4 class="card-title">เงินสด : {{historyWallet.cash}}</h4>
+        <h4 class="card-title">เงินโอน : {{historyWallet.transfer}}</h4>
+        <table class="table table-striped table-bordered table-hover table-responsive">
+            <thead>
+                <tr>
+                    <th scope="col">ลำดับ</th>
+                    <th scope="col">ลูกค้า</th>
+                    <th scope="col">วันที่ เวลา</th>
+                    <th scope="col">ผู้ขาย</th>
+                    <th scope="col">จำนวนเงิน</th>
+                    <th scope="col">วิธีการชำระ</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let order of orderHistorys; index as i">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{order.customer.customer.name}}</td>
+                    <td>{{order.createTime}}</td>
+                    <td>{{order.createBy.displayName}}</td>
+                    <td>{{order.total}}</td>
+                    <td>{{getPaymentType(order.payment.type)}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary" (click)="setActiveOrder(order)">
+                            รายละเอียด
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

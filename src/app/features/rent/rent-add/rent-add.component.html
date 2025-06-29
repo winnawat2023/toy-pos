@@ -1,0 +1,156 @@
+<form [formGroup]="rentForm">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">บันทึกค่านำ้</h4>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row g-2">
+                <div class="col-auto">
+                    <input type="text" readonly class="form-control-plaintext" id="lotNumber" value="ล็อคหมายเลข">
+                </div>
+                <div class="col-auto">
+                    <input disabled type="text" class="form-control" id="lotNumber" formControlName="lotNumber">
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col-auto">
+                    <input type="text" readonly class="form-control-plaintext" id="rent" value="ค่าเช่า">
+                </div>
+                <div class="col-auto">
+                    <input disabled type="number" class="form-control" id="rent" formControlName="rent">
+                </div>
+            </div>
+           <br>
+
+            <div class="row g-2">
+                <div class="col-auto">
+                    <input type="text" readonly class="form-control-plaintext" id="lastElectricityMeter"
+                        value="หน่วยไฟฟ้าเดือนก่อนหน้า">
+                </div>
+                <div class="col-auto">
+                    <input disabled type="number" (change)="calElectricityMeter()" class="form-control" id="lastElectricityMeter"
+                        formControlName="lastElectricityMeter">
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col-auto">
+                    <input type="text" readonly class="form-control-plaintext" id="currentElectricityMeter"
+                        value="หน่วยไฟฟ้าเดือนปัจจุบัน">
+                </div>
+                <div class="col-auto">
+                    <input type="number" (change)="calElectricityMeter()" class="form-control"
+                        id="currentElectricityMeter" formControlName="currentElectricityMeter">
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col-auto">
+                    <input  type="text" readonly class="form-control-plaintext" id="totalElectricityMeter"
+                        value="จำนวนหน่วย">
+                </div>
+                <div class="col-auto">
+                    <input disabled type="number" readonly class="form-control" id="totalElectricityMeter"
+                        formControlName="totalElectricityMeter">
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col-auto">
+                    <input type="text" readonly class="form-control-plaintext" id="electricityPrice"
+                        value="ราคาต่อหน่วย">
+                </div>
+                <div class="col-auto">
+                    <input type="number" disabled readonly class="form-control" id="electricityPrice"
+                        formControlName="electricityPrice">
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col-auto">
+                    <input type="text" readonly class="form-control-plaintext" id="totalElectricity"
+                        value="ราคาค่าไฟฟ้า">
+                </div>
+                <div class="col-auto">
+                    <input type="number" disabled readonly class="form-control" id="totalElectricity"
+                        formControlName="totalElectricity">
+                </div>
+            </div>
+            <br>
+
+            <div class="row g-2">
+                <div class="col-auto">
+                    <input type="text" readonly class="form-control-plaintext" id="lastMeterWater"
+                        value="มิเตอร์น้ำเดือนก่อนหน้า">
+                </div>
+                <div class="col-auto">
+                    <input (change)="calWaterMeter()" type="number" class="form-control" id="lastMeterWater"
+                    disabled  formControlName="lastMeterWater">
+                </div>
+            </div>
+
+            <div class="row g-2">
+                <div class="col-auto">
+                    <input type="text" readonly class="form-control-plaintext" id="currentMeterWater"
+                        value="มิเตอร์น้ำเดือนปัจจุบัน">
+                </div>
+                <div class="col-auto">
+                    <input (change)="calWaterMeter()" type="number" class="form-control" id="currentMeterWater"
+                        formControlName="currentMeterWater">
+                </div>
+            </div>
+
+            <div class="row g-2">
+                <div class="col-auto">
+                    <input type="text" readonly class="form-control-plaintext" id="totalMeterWater" value="จำนวนหน่วย">
+                </div>
+                <div class="col-auto">
+                    <input disabled type="number" readonly class="form-control" id="totalMeterWater"
+                        formControlName="totalMeterWater">
+                </div>
+            </div>
+
+            <div class="row g-2">
+                <div class="col-auto">
+                    <input type="text" readonly class="form-control-plaintext" id="waterPrice"
+                        value="ราคาต่อหน่วย">
+                </div>
+                <div class="col-auto">
+                    <input disabled type="number" class="form-control" id="waterPrice" formControlName="waterPrice">
+                </div>
+            </div>
+
+            <div class="row g-2">
+                <div class="col-auto">
+                    <input type="text" readonly class="form-control-plaintext" id="waterPrice" value="รวมราคาค่าน้ำ">
+                </div>
+                <div class="col-auto">
+                    <input disabled type="number" readonly class="form-control" id="totalWater" formControlName="totalWater">
+                </div>
+            </div>
+            <br>
+
+
+            <div class="row g-2">
+                <div class="col-auto">
+                    <input type="text" readonly class="form-control-plaintext" id="totalPrice" value="รวมราคา">
+                </div>
+                <div class="col-auto">
+                    <input disabled type="number" readonly class="form-control" id="totalPrice" formControlName="totalPrice">
+                </div>
+            </div>
+            <br>
+
+
+
+        </div>
+
+        <div class="card-footer text-muted">
+            <button type="button" (click)="goBack()" class="btn btn-warning">
+                กลับ
+            </button>
+            <button type="submit" (click)="addRent()" class="btn btn-success">
+                บันทึก
+            </button>
+        </div>
+
+    </div>
+</form>

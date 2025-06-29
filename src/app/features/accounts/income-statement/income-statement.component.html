@@ -1,0 +1,100 @@
+<div class="card">
+    <div class="card-header">
+        <div class="row g-2">
+            <div class="col-auto">
+                <h4 class="card-title">สรุปบัญชีรายวัน (งบกำไรขาดทุน)</h4>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card-body">
+
+        <form >
+          <label for="">ประจำวันที่ </label>  <input type="date" formControlName="date">
+        </form>
+        
+        <br>
+
+        <table class="table table-striped table-bordered table-hover table-responsive">
+            <thead>
+                <tr>
+                    <th colspan="3" scope="col">ร้าน Toy Cafe & Wine</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th colspan="2" scope="col">รายได้</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>รายได้จากการขาย</td>
+                    <td>100</td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <th>รวมรายได้</th>
+                    <td>100</td>
+                </tr>
+
+                <tr>
+                    <th colspan="2" scope="col">ค่าใช้จ่าย</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>ร้านเมย์</td>
+                    <td>20</td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <th>รวมค่าใข้จ่าย</th>
+                    <td>100</td>
+                </tr>
+
+
+                <tr>
+                    <th colspan="2" scope="col">กำไรก่อนดอกเบี้ยและภาษีเงินได้</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>ดอกเบี้ยจ่าย</td>
+                    <td>20</td>
+                </tr>
+
+                <tr>
+                    <th colspan="2" scope="col">กำไรก่อนดอกเบี้ยและภาษีเงินได้</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>ภาษีเงินได้</td>
+                    <td>20</td>
+                </tr>
+
+            </tbody>
+            <tfoot>
+
+                <tr>
+                    <th colspan="2">กำไรสุทธิ</th>
+                    <td>100</td>
+                </tr>
+            </tfoot>
+        </table>
+
+
+
+
+    </div>
+
+    <div class="card-footer text-muted">
+        <button type="submit" (click)="onSave()" class="btn btn-success">
+            บันทึก
+        </button>
+
+    </div>
+</div>
